@@ -8,11 +8,10 @@ import datetime
 s = requests.session()
 s.verify = os.getenv('USERPROFILE')+'\ca-bundle.crt'
 gittoken = os.environ['GITLAB_TOKEN']
-gl = gitlab.Gitlab(url='https://gitlab.ca.cib/', private_token=gittoken, session= s)
+gl = gitlab.Gitlab(url='https://gitlab.ca.cib/', private_token=gittoken, session=s)
 gl.auth()
 
-#deactivate = os.environ['DEACTIVATE_USERS']
-deactivate== 'true'
+deactivate = os.environ['DEACTIVATE_USERS']
 user_desact_number=0
 if(deactivate == 'true'):
   print('REAL MODE, USERS WITH NO ACTIVITY FOR 90 DAYS WILL BE DEACTIVATED')
@@ -40,7 +39,7 @@ def check_Date(last_activity_date):
    
     b1 = datetime.datetime.strptime(last_activity_date, '%Y-%m-%d')
 #    b2 = datetime.datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%S.%fZ')
-    return b1.date() < date_limit
+    return b1.date() <= date_limit
 
 
 # function deactivating a given user
